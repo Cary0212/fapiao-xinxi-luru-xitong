@@ -1,0 +1,8 @@
+.venv/
+web_demo/data/
+tmp/
+__pycache__/
+*.pyc
+github-repository-created.png
+invoice*.pdf
+output/

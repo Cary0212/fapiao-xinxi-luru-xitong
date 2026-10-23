@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fb">
+  <title>票据整理 · PDF 转 Word</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">票</span>
+      <div><strong>票据整理</strong><small>PDF → Word</small></div>
+    </div>
+    <div class="top-actions">
+      <span class="local-tag">本机 Demo</span>
+      <button id="exportButton" class="button button-primary" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg>
+        导出 Word
+      </button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">发票信息录入</p>
+        <h1>把 PDF 票据信息整理成一份 Word</h1>
+        <p class="intro-copy">上传多份 PDF，检查自动提取的地址、日期、金额和商品明细，确认后导出报销模板。</p>
+      </div>
+      <div class="workflow" aria-label="操作流程">
+        <span class="step active"><b>1</b> 上传 PDF</span><i></i>
+        <span class="step"><b>2</b> 核对信息</span><i></i>
+        <span class="step"><b>3</b> 导出 Word</span>
+      </div>
+    </section>
+
+    <section id="uploadArea" class="upload-card" aria-label="上传 PDF 文件">
+      <div class="upload-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      </div>
+      <div class="upload-text"><strong>拖入多份 PDF，或选择文件上传</strong><span>支持扫描小票和出租车发票；一次上传最多 30 份，每份不超过 30 MB。</span></div>
+      <button id="selectButton" class="button button-secondary" type="button">选择 PDF</button>
+      <input id="fileInput" type="file" accept="application/pdf,.pdf" multiple hidden>
+    </section>
+
+    <section class="summary" aria-label="批次汇总">
+      <div class="summary-card"><span>已识别票据</span><strong id="countValue">0 <small>张</small></strong></div>
+      <div class="summary-card"><span>购物小票</span><strong id="shoppingValue">¥0.00</strong></div>
+      <div class="summary-card"><span>出租车发票</span><strong id="taxiValue">¥0.00</strong></div>
+      <div class="summary-card total"><span>合计金额</span><strong id="totalValue">¥0.00</strong></div>
+    </section>
+
+    <section class="workspace" aria-label="票据核对工作区">
+      <aside class="panel receipt-panel">
+        <div class="panel-heading"><div><h2>票据列表</h2><p id="listSubtitle">上传后在这里查看识别结果</p></div><span id="progressBadge" class="badge">待上传</span></div>
+        <div id="receiptList" class="receipt-list"><div class="empty-state"><span class="empty-glyph">▤</span><strong>尚无票据</strong><p>上传 PDF 后，识别结果会显示在这里。</p></div></div>
+        <div id="errorList" class="error-list" hidden></div>
+      </aside>
+
+      <section class="panel preview-panel">
+        <div class="panel-heading"><div><h2>原件预览</h2><p>对照原票逐项核对</p></div><span id="sourceLabel" class="source-label">—</span></div>
+        <div id="previewBody" class="preview-body"><div class="empty-preview"><span>PDF</span><p>选择左侧票据后显示原件</p></div></div>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="panel-heading"><div><h2>信息录入</h2><p>识别结果可直接修改</p></div><span id="reviewBadge" class="badge muted">未选择</span></div>
+        <div id="editorBody" class="editor-body"><div class="empty-state"><span class="empty-glyph">✎</span><strong>等待选择票据</strong><p>选择左侧一张票据开始核对。</p></div></div>
+      </section>
+    </section>
+    <p class="footnote">识别结果仅供录入辅助。导出前请对照原始票据检查金额、号码及商品信息。</p>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

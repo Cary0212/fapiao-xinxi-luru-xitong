@@ -1,0 +1,1 @@
+"""Local invoice entry demo."""
